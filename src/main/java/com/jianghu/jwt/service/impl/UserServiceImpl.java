@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
             throw new BaseException(10003, "密码不能为空");
         }
         user.setPassword(MD5.getMd5(user.getPassword()));
+        user.setCreateTime(new Date());
         userRepository.save(user);
         ResultVo resultVo = new ResultVo();
         resultVo.setCode("11000");
