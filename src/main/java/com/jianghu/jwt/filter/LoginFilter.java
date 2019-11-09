@@ -15,16 +15,12 @@ import java.util.Map;
  * @Date: 2019/10/28 16:07
  * @Description:
  */
-public abstract class LoginFilter implements HandlerInterceptor {
+public class LoginFilter implements HandlerInterceptor {
 
     public static ThreadLocal<User> local = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String requestURI = request.getRequestURI();
-        if (requestURI.contains("/user/register") || requestURI.contains("/user/login")) {
-            return true;
-        }
         String authorization = request.getHeader("Authorization");
         Map<String, Claim> claimMap = JWTUtils.verifyToken(authorization);
         if (claimMap == null) {

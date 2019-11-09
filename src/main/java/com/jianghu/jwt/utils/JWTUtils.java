@@ -31,6 +31,7 @@ public class JWTUtils {
             verify= jwt.verify(token);
         }catch (Exception e){
             System.out.println("登陆过期");
+            return null;
         }
         return verify.getClaims();
 

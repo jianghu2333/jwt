@@ -4,9 +4,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @Auther: JY
  * @Date: 2019/10/30 14:26
@@ -14,14 +11,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
+
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginFilter() {
-            @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                return super.preHandle(request, response, handler);
-            }
-        }).addPathPatterns("/user/register").addPathPatterns("/user/login").excludePathPatterns("/user/**");
-        super.addInterceptors(registry);
+        //注册自定义拦截器，添加拦截路径和排除拦截路径
+        registry.addInterceptor(new LoginFilter()).addPathPatterns("/**").excludePathPatterns("/user/login", "/user/register");
     }
 }
