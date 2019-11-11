@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultVo findByUserAndPassword(String username, String password) throws BaseException {
-        User user = userRepository.findByUsernameAndPassword(username, password);
+        User user = userRepository.findByUsernameAndPassword(username, MD5.getMd5(password));
         if (user == null) {
             throw new BaseException(10000, "暂无该用户");
         }
